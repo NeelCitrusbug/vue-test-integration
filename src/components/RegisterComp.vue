@@ -44,7 +44,7 @@
         <div class="cf_form_block">
           <a href="javascript:;" @click="handleRegister" class="cf_btn">Register</a>
         </div>
-        <p class="cf_redirect">Have an account? <a href="login.html">Login</a></p>
+        <p class="cf_redirect">Have an account? <router-link to="/login">Login</router-link></p>
       </div>
       </form>
     </div>
@@ -54,7 +54,7 @@
 
 <script>
 import {baseURL,isRequired,validateEmail,isPassword} from '../../src/Utils/index'
-import {reactive,toRefs,ref} from 'vue'
+import {reactive,toRefs,ref,watch} from 'vue'
 import axios from "axios";
 import router from "../routes";
     export default {
@@ -80,6 +80,22 @@ import router from "../routes";
             last_name:'',
             phone:''
           });
+
+          watch(() => {
+                return {...registerState}
+            },() => {
+                emailErr.value = ""
+                passwordErr.value = ""
+                password2Err.value = ""
+                commonErr.value = ""
+                firstnameErr.value = ""
+                lastnameErr.value = ""
+                phoneErr.value = ""
+
+            },{
+                immediate:true,
+                deep:true
+            })
 
           function handlePassword1(){
             showPass1.value = !showPass1.value

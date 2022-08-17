@@ -69,17 +69,14 @@ import router from "../routes";
 
           watch(() => {
                 return {...loginState}
-            },(newValue,oldValue) => {
-                console.log("oldValue fName",oldValue?.email)
-                console.log("newValue fName",newValue?.email)
-                console.log("oldValue lName",oldValue?.password)
-                console.log("newValue lName",newValue?.password)
+            },() => {
                 emailErr.value = ""
                 passwordErr.value = ""
                 commonErr.value = ""
 
             },{
                 immediate:true,
+                deep:true
             })
 
           function handlePassword(){
