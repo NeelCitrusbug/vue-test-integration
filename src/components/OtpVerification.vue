@@ -25,7 +25,7 @@
 
 <script>
 import {isRequired,baseURL} from '../../src/Utils/index'
-import {ref} from 'vue'
+import {ref,watch} from 'vue'
 import axios from "axios";
 import router from "../routes";
     export default {
@@ -34,6 +34,13 @@ import router from "../routes";
         setup(){
           const otpVal = ref('')
           const otpErr = ref('')
+          
+          watch(otpVal,() => {
+            otpErr.value = ''
+          },{
+                immediate:true,
+                deep:true
+            })
 
           function isFormValid(){
             let isValid = true;
@@ -57,11 +64,12 @@ import router from "../routes";
                 console.log("otp response",response.data.status, typeof response.data.status);
                 if (response.data.status === true) {
                   localStorage.setItem("auth", JSON.stringify(response.data.data));
+                  router.push({ name: "EditProfile" });
                 }
                 else{
                   otpErr.value = "OTP is invalid or expired"
                 }
-                router.push({ name: "EditProfile" });
+                
               })
               .catch(function (error) {
                 if (error.response.status === 401) {

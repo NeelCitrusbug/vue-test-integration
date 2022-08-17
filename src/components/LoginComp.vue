@@ -14,8 +14,8 @@
           <span class="response_message error" v-if="emailErr">{{ emailErr }}</span>
         </div>
         <div class="cf_form_block success">
-          <input type="password" v-model="password" placeholder="Enter Password" class="cf_form_field">
-          <span class="cf_icon cf_eye_green"></span>
+          <input :type="[showPass?'text':'password']" v-model="password" placeholder="Enter Password" class="cf_form_field">
+          <span @click="handlePassword" :class="[showPass?'cf_eye_green_close':'']" class="cf_icon cf_eye_green"></span>
           <span class="response_message error" v-if="passwordErr">{{ passwordErr }}</span>
         </div>
         <div class="cf_form_block">
@@ -65,6 +65,8 @@ import router from "../routes";
           const passwordErr = ref('')
           const commonErr = ref('')
 
+          const showPass = ref(false)
+
           watch(() => {
                 return {...loginState}
             },(newValue,oldValue) => {
@@ -79,6 +81,10 @@ import router from "../routes";
             },{
                 immediate:true,
             })
+
+          function handlePassword(){
+            showPass.value = !showPass.value
+          }
 
           function isFormValid(){
           let isValid = true;
@@ -129,6 +135,8 @@ import router from "../routes";
             passwordErr,
             commonErr,
             handleLogin,
+            handlePassword,
+            showPass
           }
         }
     }

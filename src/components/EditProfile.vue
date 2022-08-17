@@ -160,8 +160,8 @@
                     <div class="cf_edit_profile_form_block">
                       <label>Current Password</label>
                       <div class="cf_form_block">
-                        <input :type="[true?'password':'text']" v-model="currentPass" placeholder="Enter Password" class="cf_form_field">
-                        <span class="cf_icon cf_eye_green"></span>
+                        <input :type="[showPass1?'text':'password']" v-model="currentPass" placeholder="Enter Password" class="cf_form_field">
+                        <span @click="handlePassword1" :class="[showPass1?'cf_eye_green_close':'']" class="cf_icon cf_eye_green"></span>
                       </div>
                     </div>
                     <span v-if="currentPassErr" className="response_message error">
@@ -172,8 +172,8 @@
                     <div class="cf_edit_profile_form_block">
                       <label>New Password</label>
                       <div class="cf_form_block">
-                        <input :type="[true?'password':'text']" v-model="password" placeholder="Enter Password" class="cf_form_field">
-                        <span class="cf_icon cf_eye_green"></span>
+                        <input :type="[showPass2?'text':'password']" v-model="password" placeholder="Enter Password" class="cf_form_field">
+                        <span @click="handlePassword2" :class="[showPass2?'cf_eye_green_close':'']" class="cf_icon cf_eye_green"></span>
                       </div>
                     </div>
                     <span v-if="passwordErr" className="response_message error">
@@ -184,8 +184,8 @@
                     <div class="cf_edit_profile_form_block">
                       <label>Confirm Password</label>
                       <div class="cf_form_block">
-                        <input :type="[true?'password':'text']" v-model="password2" placeholder="Enter Password" class="cf_form_field">
-                        <span class="cf_icon cf_eye_green"></span>
+                        <input :type="[showPass3?'text':'password']" v-model="password2" placeholder="Enter Password" class="cf_form_field">
+                        <span @click="handlePassword3" :class="[showPass3?'cf_eye_green_close':'']" class="cf_icon cf_eye_green"></span>
                       </div>
                     </div>
                     <span v-if="password2Err" className="response_message error">
@@ -246,6 +246,10 @@ import router from "../routes";
           const password2Err = ref('')
 
           const isUpdated = ref(false)
+
+          const showPass1 = ref(false)
+          const showPass2 = ref(false)
+          const showPass3 = ref(false)
 
           const userProfile = reactive({
             firstName:'',
@@ -339,6 +343,17 @@ import router from "../routes";
             getCompanyData()
           })
 
+          function handlePassword1(){
+            showPass1.value = !showPass1.value
+          }
+
+          function handlePassword2(){
+            showPass2.value = !showPass2.value
+          }
+
+          function handlePassword3(){
+            showPass3.value = !showPass3.value
+          }
 
           function formValid () {
           let isValid = true;
@@ -444,7 +459,13 @@ import router from "../routes";
             password2Err,
             handleFormSubmit,
             companyRoleErr,
-            logout
+            logout,
+            showPass1,
+            showPass2,
+            showPass3,
+            handlePassword1,
+            handlePassword2,
+            handlePassword3
           }
         }
     }

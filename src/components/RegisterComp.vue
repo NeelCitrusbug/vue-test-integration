@@ -29,13 +29,13 @@
           <span className="response_message error" v-if="emailErr">{{emailErr}}</span>
         </div>
         <div class="cf_form_block">
-          <input type="password" v-model="password" placeholder="Password" class="cf_form_field">
-          <span class="cf_icon cf_eye_green"></span>
+          <input :type="[showPass1?'text':'password']" v-model="password" placeholder="Password" class="cf_form_field">
+          <span @click="handlePassword1" :class="[showPass1?'cf_eye_green_close':'']" class="cf_icon cf_eye_green"></span>
           <span className="response_message error" v-if="passwordErr">{{passwordErr}}</span>
         </div>
         <div class="cf_form_block">
-          <input type="password" v-model="password2" placeholder="Confirm Password" class="cf_form_field">
-          <span class="cf_icon cf_eye_green"></span>
+          <input :type="[showPass2?'text':'password']" v-model="password2" placeholder="Confirm Password" class="cf_form_field">
+          <span @click="handlePassword2" :class="[showPass2?'cf_eye_green_close':'']" class="cf_icon cf_eye_green"></span>
           <span className="response_message error" v-if="password2Err">{{password2Err}}</span>
         </div>
         <div class="cf_form_block error" v-if="commonErr">
@@ -69,6 +69,9 @@ import router from "../routes";
           const lastnameErr = ref('')
           const phoneErr = ref('')
 
+          const showPass1 = ref(false)
+          const showPass2 = ref(false)
+
           const registerState = reactive({
             email:'',
             password:'',
@@ -77,6 +80,14 @@ import router from "../routes";
             last_name:'',
             phone:''
           });
+
+          function handlePassword1(){
+            showPass1.value = !showPass1.value
+          }
+
+          function handlePassword2(){
+            showPass2.value = !showPass2.value
+          }
 
           function isFormValid () {
           let isValid = true;
@@ -164,7 +175,11 @@ import router from "../routes";
             firstnameErr,
             lastnameErr,
             phoneErr,
-            handleRegister
+            handleRegister,
+            showPass1,
+            showPass2,
+            handlePassword1,
+            handlePassword2
           }
         }
     }
