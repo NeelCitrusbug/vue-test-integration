@@ -7,6 +7,10 @@ import EditProfile from './components/EditProfile.vue'
 
 const routes = [
     {
+        path: '/',
+        redirect: JSON.parse(localStorage.getItem("auth"))?'/dashboard':'/login',
+    },
+    {
         path: '/login',
         name: 'Login',
         component: Login
