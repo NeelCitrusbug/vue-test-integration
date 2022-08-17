@@ -38,7 +38,7 @@
         <div class="cf_form_block error" v-if="commonErr">
               <span className="response_message error">{{commonErr}}</span>
         </div>
-        <p class="cf_redirect">Don't have an account? <a href="register.html">Register now</a></p>
+        <p class="cf_redirect">Don't have an account? <router-link to="/register">Register now</router-link></p>
         </form>
       </div>
     </div>
